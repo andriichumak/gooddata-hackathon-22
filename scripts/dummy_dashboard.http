@@ -1,0 +1,126 @@
+### Add a filter context
+POST http://localhost:3000/api/v1/entities/workspaces/demo_ws/filterContexts
+Authorization: Bearer YWRtaW46Ym9vdHN0cmFwOmFkbWluMTIz
+Content-Type: application/vnd.gooddata.api+json
+
+{
+  "data": {
+    "attributes": {
+      "title": "filterContext",
+      "description": "",
+      "content": {
+        "filters": [
+          {
+            "attributeFilter": {
+              "displayForm": {
+                "identifier": {
+                  "id": "products.category",
+                  "type": "label"
+                }
+              },
+              "negativeSelection": true,
+              "attributeElements": {
+                "uris": []
+              },
+              "localIdentifier": "5b801bdbed134babbab667db74f2e7d1",
+              "filterElementsBy": []
+            }
+          }
+        ],
+        "version": "2"
+      }
+    },
+    "id": "flex_filter_context",
+    "type": "filterContext"
+  }
+}
+
+### Remove filter context
+DELETE http://localhost:3000/api/v1/entities/workspaces/demo_ws/filterContexts
+Authorization: Bearer YWRtaW46Ym9vdHN0cmFwOmFkbWluMTIz
+
+### Add a dummy dashboard to the Tiger server
+POST http://localhost:3000/api/v1/entities/workspaces/demo_ws/analyticalDashboards
+Authorization: Bearer YWRtaW46Ym9vdHN0cmFwOmFkbWluMTIz
+Content-Type: application/vnd.gooddata.api+json
+
+{
+  "data": {
+    "attributes": {
+      "title": "Flexible dashboard",
+      "description": "A dashboard with custom content for flex layout",
+      "content": {
+        "filterContextRef": {
+          "identifier": {
+            "id": "flex_filter_context",
+            "type": "filterContext"
+          }
+        },
+        "layout": {
+          "rootWidget": "col1",
+          "widgets": [
+            {
+              "uuid": "col1",
+              "type": "column",
+              "children": [
+                "row1",
+                "row2"
+              ]
+            },
+            {
+              "uuid": "col2",
+              "type": "column",
+              "children": [
+                "ins2",
+                "ins3"
+              ]
+            },
+            {
+              "uuid": "row1",
+              "type": "row",
+              "children": [
+                "ins1",
+                "col2"
+              ]
+            },
+            {
+              "uuid": "row2",
+              "type": "row",
+              "children": [
+                "ins4"
+              ]
+            },
+            {
+              "uuid": "ins1",
+              "type": "insight",
+              "insightId": "product_categories_pie_chart"
+            },
+            {
+              "uuid": "ins2",
+              "type": "insight",
+              "insightId": "product_saleability"
+            },
+            {
+              "uuid": "ins3",
+              "type": "insight",
+              "insightId": "revenue_by_product"
+            },
+            {
+              "uuid": "ins4",
+              "type": "insight",
+              "insightId": "top_10_customers"
+            }
+          ]
+        },
+        "version": "3"
+      }
+    },
+    "id": "flex",
+    "type": "analyticalDashboard"
+  }
+}
+
+
+### Remove the dashboard
+DELETE http://localhost:3000/api/v1/entities/workspaces/demo_ws/analyticalDashboards/flex
+Authorization: Bearer YWRtaW46Ym9vdHN0cmFwOmFkbWluMTIz
