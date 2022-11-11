@@ -47,7 +47,7 @@ Content-Type: application/vnd.gooddata.api+json
 {
   "data": {
     "attributes": {
-      "title": "Flexible dashboard",
+      "title": "Simple dashboard",
       "description": "A dashboard with custom content for flex layout",
       "content": {
         "filterContextRef": {
@@ -66,19 +66,10 @@ Content-Type: application/vnd.gooddata.api+json
                 "width": 12
               },
               "children": [
+                "desc1",
                 "row1",
+                "desc2",
                 "row2"
-              ]
-            },
-            {
-              "uuid": "col2",
-              "type": "column",
-              "size": {
-                "width": 4
-              },
-              "children": [
-                "ins2",
-                "ins3"
               ]
             },
             {
@@ -86,13 +77,14 @@ Content-Type: application/vnd.gooddata.api+json
               "type": "row",
               "children": [
                 "ins1",
-                "col2"
+                "ins2"
               ]
             },
             {
               "uuid": "row2",
               "type": "row",
               "children": [
+                "ins3",
                 "ins4"
               ]
             },
@@ -100,46 +92,78 @@ Content-Type: application/vnd.gooddata.api+json
               "uuid": "ins1",
               "type": "insight",
               "size": {
-                "width": 8,
-                "height": 800
+                "width": 6,
+                "height": 300
               },
-              "insightId": "product_categories_pie_chart"
+              "config": {
+                "insightId": "customers_trend"
+              }
             },
             {
               "uuid": "ins2",
               "type": "insight",
               "size": {
-                "height": 400
+                "width": 6,
+                "height": 300
               },
-              "insightId": "product_saleability"
+              "config": {
+                "insightId": "campaign_spend"
+              }
             },
             {
               "uuid": "ins3",
               "type": "insight",
               "size": {
-                "height": 400
+                "height": 300,
+                "width": 6
               },
-              "insightId": "revenue_by_product"
+              "config": {
+                "insightId": "percentage_of_customers_by_region"
+              }
             },
             {
               "uuid": "ins4",
               "type": "insight",
               "size": {
-                "height": 600
+                "width": 6,
+                "height": 300
               },
-              "insightId": "top_10_customers"
+              "config": {
+                "insightId": "product_breakdown"
+              }
+            },
+            {
+              "uuid": "desc1",
+              "type": "description",
+              "size": {
+                "width": 12
+              },
+              "config": {
+                "title": "The first section"
+              }
+            },
+            {
+              "uuid": "desc2",
+              "type": "description",
+              "size": {
+                "width": 12
+              },
+              "config": {
+                "title": "Another section",
+                "description": "With extra description"
+              }
             }
           ]
         },
         "version": "3"
       }
     },
-    "id": "flex",
+    "id": "simple",
     "type": "analyticalDashboard"
   }
 }
 
 
 ### Remove the dashboard
-DELETE http://localhost:3000/api/v1/entities/workspaces/demo_ws/analyticalDashboards/flex
+DELETE http://localhost:3000/api/v1/entities/workspaces/demo_ws/analyticalDashboards/simple
 Authorization: Bearer YWRtaW46Ym9vdHN0cmFwOmFkbWluMTIz

@@ -28,6 +28,10 @@
     flex: 1;
 }
 
+.description {
+    flex-grow: 1;
+}
+
 .row {
     box-sizing: border-box;
     padding: 5px;

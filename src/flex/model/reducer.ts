@@ -1,25 +1,31 @@
-import {DashboardV3EditStackState, DashboardV3State, getDefaultState} from "./model";
-import {Reducer} from "redux";
-import { v4 as uuidv4 } from 'uuid';
+import { DashboardV3EditStackState, DashboardV3State, getDefaultState } from "./model";
+import { Reducer } from "redux";
+import { v4 as uuidv4 } from "uuid";
 import {
     ADD_WIDGET,
     LOAD_DASHBOARD,
     LOADED_DASHBOARD,
-    REDO, REMOVE_WIDGET, RENAME_DASHBOARD,
+    REDO,
+    REMOVE_WIDGET,
+    RENAME_DASHBOARD,
     SAVE_DASHBOARD_DONE,
     SAVE_DASHBOARD_ERROR,
     SAVE_DASHBOARD_START,
-    UNDO, UNLOAD_DASHBOARD,
+    SET_WIDGETS,
+    UNDO,
+    UNLOAD_DASHBOARD,
 } from "./constants";
 
-const pushStackItem = (state: DashboardV3State, editFn: (stackItem: DashboardV3EditStackState) => DashboardV3EditStackState | undefined, replaceHistoryStep = false): DashboardV3State => {
-    if (state.status !== "loaded" || state.saving)
-        return state;
+const pushStackItem = (
+    state: DashboardV3State,
+    editFn: (stackItem: DashboardV3EditStackState) => DashboardV3EditStackState | undefined,
+    replaceHistoryStep = false,
+): DashboardV3State => {
+    if (state.status !== "loaded" || state.saving) return state;
 
     const newItem = editFn(state.data[state.editStackIndex]);
 
-    if (!newItem)
-        return state;
+    if (!newItem) return state;
 
     return {
         ...state,
@@ -47,9 +53,7 @@ export const reducer: Reducer<DashboardV3State, any> = (state = getDefaultState(
                 id: action.dashboardId,
                 editStackIndex: 0,
                 savedStackIndex: 0,
-                data: [
-                    action.dashboard,
-                ],
+                data: [action.dashboard],
             };
         case UNLOAD_DASHBOARD:
             return {
@@ -61,8 +65,7 @@ export const reducer: Reducer<DashboardV3State, any> = (state = getDefaultState(
                 saving: true,
             };
         case SAVE_DASHBOARD_DONE:
-            if (state.status !== "loaded")
-                return state;
+            if (state.status !== "loaded") return state;
 
             return {
                 ...state,
@@ -75,72 +78,102 @@ export const reducer: Reducer<DashboardV3State, any> = (state = getDefaultState(
                 saving: false,
             };
         case UNDO:
-            if (state.status !== "loaded")
-                return state;
+            if (state.status !== "loaded") return state;
 
             return {
                 ...state,
                 editStackIndex: Math.min(state.editStackIndex + 1, state.data.length - 1),
             };
         case REDO:
-            if (state.status !== "loaded")
-                return state;
+            if (state.status !== "loaded") return state;
 
             return {
                 ...state,
                 editStackIndex: Math.max(state.editStackIndex - 1, 0),
             };
         case RENAME_DASHBOARD:
-            return pushStackItem(state, prevItem => {
-                if (action.title === prevItem.title)
-                    return;
+            return pushStackItem(
+                state,
+                (prevItem) => {
+                    if (action.title === prevItem.title) return;
 
-                return {
-                    ...prevItem,
-                    title: action.title,
-                };
-            }, action.replaceHistoryStep);
+                    return {
+                        ...prevItem,
+                        title: action.title,
+                    };
+                },
+                action.replaceHistoryStep,
+            );
         case ADD_WIDGET:
-            return pushStackItem(state, prevItem => {
-                const newId = uuidv4();
+            return pushStackItem(
+                state,
+                (prevItem) => {
+                    const newId = uuidv4();
 
-                return {
-                    ...prevItem,
-                    widgets: {
-                        ...prevItem.widgets,
-                        [action.parentId]: {
-                            ...prevItem.widgets[action.parentId],
-                            children: [...(prevItem.widgets[action.parentId].children ?? []).splice(action.index, 0, newId)],
+                    return {
+                        ...prevItem,
+                        widgets: {
+                            ...prevItem.widgets,
+                            [action.parentId]: {
+                                ...prevItem.widgets[action.parentId],
+                                children: [
+                                    ...(prevItem.widgets[action.parentId].children ?? []).splice(
+                                        action.index,
+                                        0,
+                                        newId,
+                                    ),
+                                ],
+                            },
+                            [newId]: {
+                                ...action.child,
+                                uuid: newId,
+                            },
                         },
-                        [newId]: {
-                            ...action.child,
-                            uuid: newId,
-                        },
-                    },
-                };
-            }, action.replaceHistoryStep);
+                    };
+                },
+                action.replaceHistoryStep,
+            );
         case REMOVE_WIDGET:
-            return pushStackItem(state, prevItem => {
-                if (action.widgetId === prevItem.rootWidget)
-                    return;
+            return pushStackItem(
+                state,
+                (prevItem) => {
+                    if (action.widgetId === prevItem.rootWidget) return;
 
+                    return {
+                        ...prevItem,
+                        widgets: Object.fromEntries(
+                            Object.entries(prevItem.widgets)
+                                .filter(([widgetId]) => {
+                                    // Remove the widget from this object
+                                    return widgetId !== action.widgetId;
+                                })
+                                .map(([widgetId, widget]) => {
+                                    // Remove the widget from parent's children
+                                    if (widget.children?.includes(action.widgetId)) {
+                                        return [
+                                            widgetId,
+                                            {
+                                                ...widget,
+                                                children: widget.children.filter(
+                                                    (id) => id !== action.widgetId,
+                                                ),
+                                            },
+                                        ];
+                                    }
+                                    return [widgetId, widget];
+                                }),
+                        ),
+                    };
+                },
+                action.replaceHistoryStep,
+            );
+        case SET_WIDGETS:
+            return pushStackItem(state, (prevItem) => {
                 return {
                     ...prevItem,
-                    widgets: Object.fromEntries(Object.entries(prevItem.widgets).filter(([widgetId]) => {
-                        // Remove the widget from this object
-                        return widgetId !== action.widgetId;
-                    }).map(([widgetId, widget]) => {
-                        // Remove the widget from parent's children
-                        if (widget.children?.includes(action.widgetId)) {
-                            return [widgetId, {
-                                ...widget,
-                                children: widget.children.filter(id => id !== action.widgetId),
-                            }];
-                        }
-                        return [widgetId, widget];
-                    })),
+                    widgets: action.widgets,
                 };
-            }, action.replaceHistoryStep);
+            });
         default:
             return state;
     }

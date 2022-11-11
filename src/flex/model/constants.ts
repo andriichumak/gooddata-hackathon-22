@@ -18,3 +18,4 @@ export const RENAME_DASHBOARD = "RENAME_DASHBOARD";
 // Content manipulations
 export const ADD_WIDGET = "ADD_WIDGET";
 export const REMOVE_WIDGET = "REMOVE_WIDGET";
+export const SET_WIDGETS = "SET_WIDGETS";

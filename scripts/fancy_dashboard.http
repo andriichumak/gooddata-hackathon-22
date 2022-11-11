@@ -1,0 +1,206 @@
+### Add a filter context
+POST http://localhost:3000/api/v1/entities/workspaces/demo_ws/filterContexts
+Authorization: Bearer YWRtaW46Ym9vdHN0cmFwOmFkbWluMTIz
+Content-Type: application/vnd.gooddata.api+json
+
+{
+  "data": {
+    "attributes": {
+      "title": "filterContext",
+      "description": "",
+      "content": {
+        "filters": [
+          {
+            "attributeFilter": {
+              "displayForm": {
+                "identifier": {
+                  "id": "products.category",
+                  "type": "label"
+                }
+              },
+              "negativeSelection": true,
+              "attributeElements": {
+                "uris": []
+              },
+              "localIdentifier": "5b801bdbed134babbab667db74f2e7d1",
+              "filterElementsBy": []
+            }
+          }
+        ],
+        "version": "2"
+      }
+    },
+    "id": "flex_filter_context",
+    "type": "filterContext"
+  }
+}
+
+### Remove filter context
+DELETE http://localhost:3000/api/v1/entities/workspaces/demo_ws/filterContexts
+Authorization: Bearer YWRtaW46Ym9vdHN0cmFwOmFkbWluMTIz
+
+### Add a dummy dashboard to the Tiger server
+POST http://localhost:3000/api/v1/entities/workspaces/demo_ws/analyticalDashboards
+Authorization: Bearer YWRtaW46Ym9vdHN0cmFwOmFkbWluMTIz
+Content-Type: application/vnd.gooddata.api+json
+
+{
+  "data": {
+    "attributes": {
+      "title": "Fancy dashboard",
+      "description": "A dashboard with custom content for flex layout",
+      "content": {
+        "filterContextRef": {
+          "identifier": {
+            "id": "flex_filter_context",
+            "type": "filterContext"
+          }
+        },
+        "layout": {
+          "rootWidget": "col1",
+          "widgets": [
+            {
+              "uuid": "col1",
+              "type": "column",
+              "size": {
+                "width": 12
+              },
+              "children": [
+                "row1",
+                "row2"
+              ]
+            },
+            {
+              "uuid": "col2",
+              "type": "column",
+              "size": {
+                "width": 6,
+                "height": 800
+              },
+              "children": [
+                "row3",
+                "row4"
+              ]
+            },
+            {
+              "uuid": "row1",
+              "type": "row",
+              "children": [
+                "des1",
+                "ins1"
+              ]
+            },
+            {
+              "uuid": "row2",
+              "type": "row",
+              "children": [
+                "ins2",
+                "col2"
+              ]
+            },
+            {
+              "uuid": "row3",
+              "type": "row",
+              "size": {
+                "height": 400
+              },
+              "children": [
+                "ins3",
+                "ins4"
+              ]
+            },
+            {
+              "uuid": "row4",
+              "type": "row",
+              "size": {
+                "height": 400
+              },
+              "children": [
+                "ins5",
+                "ins6"
+              ]
+            },
+            {
+              "uuid": "ins1",
+              "type": "insight",
+              "size": {
+                "width": 8,
+                "height": 400
+              },
+              "config": {
+                "insightId": "customers_trend"
+              }
+            },
+            {
+              "uuid": "ins2",
+              "type": "insight",
+              "size": {
+                "height": 800,
+                "width": 6
+              },
+              "config": {
+                "insightId": "revenue_by_product"
+              }
+            },
+            {
+              "uuid": "ins3",
+              "type": "insight",
+              "size": {
+                "height": 400
+              },
+              "config": {
+                "insightId": "bf6d2b2f-5872-4ec5-bdae-82d2dad81a9f"
+              }
+            },
+            {
+              "uuid": "ins4",
+              "type": "insight",
+              "size": {
+                "height": 400
+              },
+              "config": {
+                "insightId": "834a6ed3-c4ed-43e0-80b1-4355e9c0d161"
+              }
+            },
+            {
+              "uuid": "ins5",
+              "type": "insight",
+              "size": {
+                "height": 400
+              },
+              "config": {
+                "insightId": "bf6d2b2f-5872-4ec5-bdae-82d2dad81a9f"
+              }
+            },
+            {
+              "uuid": "ins6",
+              "type": "insight",
+              "size": {
+                "height": 400
+              },
+              "config": {
+                "insightId": "834a6ed3-c4ed-43e0-80b1-4355e9c0d161"
+              }
+            },
+            {
+              "uuid": "des1",
+              "type": "description",
+              "config": {
+                "title": "This is a section title",
+                "description": "And this is a description!"
+              }
+            }
+          ]
+        },
+        "version": "3"
+      }
+    },
+    "id": "fancy",
+    "type": "analyticalDashboard"
+  }
+}
+
+
+### Remove the dashboard
+DELETE http://localhost:3000/api/v1/entities/workspaces/demo_ws/analyticalDashboards/fancy
+Authorization: Bearer YWRtaW46Ym9vdHN0cmFwOmFkbWluMTIz
