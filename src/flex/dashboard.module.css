@@ -1,6 +1,8 @@
 .dashboard {
     display: flex;
     flex-direction: column;
+    container-type: inline-size;
+    container-name: dashboard;
 }
 
 .area {
@@ -14,7 +16,6 @@
 
 .insight {
     display: flex;
-    height: 300px;
     flex-grow: 1;
     flex-direction: row;
     flex-wrap: wrap;
@@ -62,4 +63,50 @@
 
 .column > * {
     width: 100%;
+}
+
+/*Mobile screen*/
+.width-1,
+.width-2,
+.width-3,
+.width-4,
+.width-5,
+.width-6,
+.width-7,
+.width-8,
+.width-9,
+.width-10,
+.width-11,
+.width-12 {width: 100%}
+
+/* Big mobile, tablet or notebook (probably windowed) */
+@container dashboard (min-width: 300px) {
+    .width-1 {width: calc(100% / 12 * 1 - 20px)}
+    .width-2 {width: calc(100% / 12 * 2 - 20px)}
+    .width-3 {width: calc(100% / 12 * 3 - 20px)}
+    .width-4 {width: calc(100% / 12 * 4 - 20px)}
+    .width-5 {width: calc(100% / 12 * 5 - 20px)}
+    .width-6 {width: calc(100% / 12 * 6 - 20px)}
+    .width-7,
+    .width-8,
+    .width-9,
+    .width-10,
+    .width-11,
+    .width-12 {width: 100%}
+}
+
+/*Large screen*/
+@container dashboard (min-width: 900px) {
+    .width-1 {width: calc(100% / 12 * 1 - 20px)}
+    .width-2 {width: calc(100% / 12 * 2 - 20px)}
+    .width-3 {width: calc(100% / 12 * 3 - 20px)}
+    .width-4 {width: calc(100% / 12 * 4 - 20px)}
+    .width-5 {width: calc(100% / 12 * 5 - 20px)}
+    .width-6 {width: calc(100% / 12 * 6 - 20px)}
+    .width-7 {width: calc(100% / 12 * 7 - 20px)}
+    .width-8 {width: calc(100% / 12 * 8 - 20px)}
+    .width-9 {width: calc(100% / 12 * 9 - 20px)}
+    .width-10 {width: calc(100% / 12 * 10 - 20px)}
+    .width-11 {width: calc(100% / 12 * 11 - 20px)}
+    .width-12 {width: 100%}
 }

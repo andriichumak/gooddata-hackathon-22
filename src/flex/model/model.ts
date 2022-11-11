@@ -19,25 +19,32 @@ export type DashboardV3EditStackState = {
     description?: string,
 };
 
+type WithSizes = {
+    size?: {
+        height?: number,
+        width?: number,
+    }
+};
+
 export type DashboardV3WidgetState = ColumnWidget | RowWidget | InsightWidget;
 
 export type ColumnWidget = {
     uuid: string,
     type: "column",
     children: string[],
-};
+} & WithSizes;
 
 export type RowWidget = {
     uuid: string,
     type: "row",
     children: string[],
-};
+} & WithSizes;
 
 export type InsightWidget = {
     uuid: string,
     type: "insight",
     children?: string[],
-};
+} & WithSizes;
 
 export const getDefaultState = (): DashboardV3State => ({
     status: null,

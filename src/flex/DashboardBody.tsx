@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import {dashboardDataSelector} from "./model/selectors";
 import {DashboardV3EditStackState} from "./model/model";
 import {InsightView} from "@gooddata/sdk-ui-ext";
+import classNames from "classnames";
 
 type DashboardBodyProps = {
     data?: DashboardV3EditStackState,
@@ -43,23 +44,29 @@ const renderWidget = (widgets: DashboardV3EditStackState["widgets"], widgetId: s
 
 const Column: React.FC<WidgetProps> = ({details, renderChild}) => {
     console.log("Column", details);
+    const height = details.size?.height ?? "auto";
+    const width = details.size?.width ?? 12;
 
-    return <div className={styles.column}>
+    return <div className={classNames(styles.column, styles[`width-${width}`])} style={{height}}>
         {details.children.map(renderChild)}
     </div>;
 };
 
 const Row: React.FC<WidgetProps> = ({details, renderChild}) => {
     console.log("Row", details);
+    const height = details.size?.height ?? "auto";
+    const width = details.size?.width ?? 12;
 
-    return <div className={styles.row}>{details.children.map(renderChild)}</div>;
+    return <div className={classNames(styles.row, styles[`width-${width}`])} style={{height}}>{details.children.map(renderChild)}</div>;
 }
 
 const Insight: React.FC<WidgetProps> = ({details}) => {
     console.log("Insight", details);
+    const height = details.size?.height ?? "auto";
+    const width = details.size?.width ?? 12;
 
-    return <div className={styles.insight}>
-        <InsightView insight={details.insightId} />
+    return <div className={classNames(styles.insight, styles[`width-${width}`])} style={{height}}>
+        <InsightView insight={details.insightId} showTitle={true} />
     </div>;
 };
 

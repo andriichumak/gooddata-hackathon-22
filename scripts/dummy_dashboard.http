@@ -62,6 +62,9 @@ Content-Type: application/vnd.gooddata.api+json
             {
               "uuid": "col1",
               "type": "column",
+              "size": {
+                "width": 12
+              },
               "children": [
                 "row1",
                 "row2"
@@ -70,6 +73,9 @@ Content-Type: application/vnd.gooddata.api+json
             {
               "uuid": "col2",
               "type": "column",
+              "size": {
+                "width": 4
+              },
               "children": [
                 "ins2",
                 "ins3"
@@ -93,21 +99,34 @@ Content-Type: application/vnd.gooddata.api+json
             {
               "uuid": "ins1",
               "type": "insight",
+              "size": {
+                "width": 8,
+                "height": 800
+              },
               "insightId": "product_categories_pie_chart"
             },
             {
               "uuid": "ins2",
               "type": "insight",
+              "size": {
+                "height": 400
+              },
               "insightId": "product_saleability"
             },
             {
               "uuid": "ins3",
               "type": "insight",
+              "size": {
+                "height": 400
+              },
               "insightId": "revenue_by_product"
             },
             {
               "uuid": "ins4",
               "type": "insight",
+              "size": {
+                "height": 600
+              },
               "insightId": "top_10_customers"
             }
           ]
