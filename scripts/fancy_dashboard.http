@@ -146,7 +146,8 @@ Content-Type: application/vnd.gooddata.api+json
               "uuid": "ins3",
               "type": "insight",
               "size": {
-                "height": 400
+                "height": 300,
+                "width": 6
               },
               "config": {
                 "insightId": "bf6d2b2f-5872-4ec5-bdae-82d2dad81a9f"
@@ -156,7 +157,8 @@ Content-Type: application/vnd.gooddata.api+json
               "uuid": "ins4",
               "type": "insight",
               "size": {
-                "height": 400
+                "height": 200,
+                "width": 6
               },
               "config": {
                 "insightId": "834a6ed3-c4ed-43e0-80b1-4355e9c0d161"
@@ -166,7 +168,8 @@ Content-Type: application/vnd.gooddata.api+json
               "uuid": "ins5",
               "type": "insight",
               "size": {
-                "height": 400
+                "height": 300,
+                "width": 6
               },
               "config": {
                 "insightId": "bf6d2b2f-5872-4ec5-bdae-82d2dad81a9f"
@@ -176,7 +179,8 @@ Content-Type: application/vnd.gooddata.api+json
               "uuid": "ins6",
               "type": "insight",
               "size": {
-                "height": 400
+                "height": 200,
+                "width": 6
               },
               "config": {
                 "insightId": "834a6ed3-c4ed-43e0-80b1-4355e9c0d161"
@@ -185,9 +189,12 @@ Content-Type: application/vnd.gooddata.api+json
             {
               "uuid": "des1",
               "type": "description",
+              "size": {
+                "width": 4
+              },
               "config": {
-                "title": "This is a section title",
-                "description": "And this is a description!"
+                "title": "This one is flexible!",
+                "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ut magna pulvinar ante tempus fringilla. Donec lobortis lectus a justo dignissim, quis aliquam enim condimentum. Donec pellentesque, nibh quis pharetra egestas, neque orci bibendum risus, vitae lacinia sem est eu mauris. Suspendisse euismod nibh elit, et ultrices eros efficitur a. Phasellus eget nulla sed sem placerat hendrerit eu et dui. Nam interdum enim et neque porta, in euismod neque eleifend. Morbi cursus dolor at enim cursus ultrices. Aenean ac luctus sem.Curabitur ipsum massa, aliquam in tristique non, ullamcorper a augue. Aenean consectetur sodales elit, et commodo leo posuere non. Integer sollicitudin quam mauris, ac laoreet tortor viverra at."
               }
             }
           ]

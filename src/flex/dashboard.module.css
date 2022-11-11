@@ -3,6 +3,7 @@
     flex-direction: column;
     container-type: inline-size;
     container-name: dashboard;
+    --base-width: calc(100%);
 }
 
 .area {
@@ -40,7 +41,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: flex-start;
-    align-items: stretch;
+    align-items: center;
     align-content: stretch;
     gap: 5px;
 }
@@ -81,36 +82,36 @@
 .width-9,
 .width-10,
 .width-11,
-.width-12 {width: 100%}
+.width-12 {width: var(--base-width)}
 
 /* Big mobile, tablet or notebook (probably windowed) */
 @container dashboard (min-width: 300px) {
-    .width-1 {width: calc(100% / 12 * 1 - 20px)}
-    .width-2 {width: calc(100% / 12 * 2 - 20px)}
-    .width-3 {width: calc(100% / 12 * 3 - 20px)}
-    .width-4 {width: calc(100% / 12 * 4 - 20px)}
-    .width-5 {width: calc(100% / 12 * 5 - 20px)}
-    .width-6 {width: calc(100% / 12 * 6 - 20px)}
+    .width-1 {width: calc(var(--base-width) / 12 * 2 - 20px)}
+    .width-2 {width: calc(var(--base-width) / 12 * 4 - 20px)}
+    .width-3 {width: calc(var(--base-width) / 12 * 6 - 20px)}
+    .width-4 {width: calc(var(--base-width) / 12 * 8 - 20px)}
+    .width-5 {width: calc(var(--base-width) / 12 * 10 - 20px)}
+    .width-6,
     .width-7,
     .width-8,
     .width-9,
     .width-10,
     .width-11,
-    .width-12 {width: 100%}
+    .width-12 {width: calc(var(--base-width) - 20px)}
 }
 
 /*Large screen*/
 @container dashboard (min-width: 900px) {
-    .width-1 {width: calc(100% / 12 * 1 - 20px)}
-    .width-2 {width: calc(100% / 12 * 2 - 20px)}
-    .width-3 {width: calc(100% / 12 * 3 - 20px)}
-    .width-4 {width: calc(100% / 12 * 4 - 20px)}
-    .width-5 {width: calc(100% / 12 * 5 - 20px)}
-    .width-6 {width: calc(100% / 12 * 6 - 20px)}
-    .width-7 {width: calc(100% / 12 * 7 - 20px)}
-    .width-8 {width: calc(100% / 12 * 8 - 20px)}
-    .width-9 {width: calc(100% / 12 * 9 - 20px)}
-    .width-10 {width: calc(100% / 12 * 10 - 20px)}
-    .width-11 {width: calc(100% / 12 * 11 - 20px)}
-    .width-12 {width: 100%}
+    .width-1 {width: calc(var(--base-width) / 12 * 1 - 20px)}
+    .width-2 {width: calc(var(--base-width) / 12 * 2 - 20px)}
+    .width-3 {width: calc(var(--base-width) / 12 * 3 - 20px)}
+    .width-4 {width: calc(var(--base-width) / 12 * 4 - 20px)}
+    .width-5 {width: calc(var(--base-width) / 12 * 5 - 20px)}
+    .width-6 {width: calc(var(--base-width) / 12 * 6 - 20px)}
+    .width-7 {width: calc(var(--base-width) / 12 * 7 - 20px)}
+    .width-8 {width: calc(var(--base-width) / 12 * 8 - 20px)}
+    .width-9 {width: calc(var(--base-width) / 12 * 9 - 20px)}
+    .width-10 {width: calc(var(--base-width) / 12 * 10 - 20px)}
+    .width-11 {width: calc(var(--base-width) / 12 * 11 - 20px)}
+    .width-12 {width: var(--base-width)}
 }
